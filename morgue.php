@@ -1,17 +1,17 @@
 <?php
 
 /*
-Plugin Name:        Morgue
-Plugin URI:         http://hearingvoices.com/tools/morgue
-Description:        For archiving posts away from public view. Adds new custom post status ('morgue') to save old posts, but prevent them from being publicly accessible.
-Author:             Barrett Golding
-Version:            0.1
-Author URI:         http://hearingvoices.com/
-License:            GPL-2.0+
-License URI:        http://www.gnu.org/licenses/gpl-2.0.txt
-Text Domain:        morgue
-Domain Path:        /languages
-Plugin Prefix:      morgue
+Plugin Name: Morgue
+Plugin URI:  http://hearingvoices.com/tools/morgue
+Description: For archiving posts away from public view. Adds new custom post status ('morgue') to save old posts, but prevent them from being publicly accessible.
+Author:      Barrett Golding
+Version:     0.1.1
+Author URI:  http://hearingvoices.com/
+License:     GPL-2.0+
+License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+Text Domain: morgue
+Domain Path: /languages
+Prefix:      morgue
 
 Morgue is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  * ------------------------------------------------------------------------ */
 
 /**
- * Registers new custom post status ('morgue').
+ * Register new custom post status ('morgue').
  *
  * Settings save post but prevent it from public access.
  *
@@ -52,7 +52,7 @@ function morgue_post_status(){
 add_action( 'init', 'morgue_post_status' );
 
 /**
- * Adds custom post status to edit=post Publish box in the Status dropdown.
+ * Add custom post status to edit=post Publish box in the Status dropdown.
  *
  * @link  http://jamescollings.co.uk/blog/wordpress-create-custom-post-status/
  */
@@ -78,7 +78,7 @@ function morgue_post_status_list() {
 add_action( 'admin_footer-post.php', 'morgue_post_status_list' );
 
 /**
- * Adds custom post status to Bulk and Quick Edit boxes in the Status dropdown.
+ * Add custom post status to Bulk and Quick Edit boxes in the Status dropdown.
  *
  * @link  https://rudrastyh.com/wordpress/custom-post-status-quick-edit.html
  */
@@ -94,7 +94,7 @@ function morgue_post_status_bulk() {
 add_action( 'admin_footer-edit.php', 'morgue_post_status_bulk' );
 
 /**
- * Adds custom post status to All {Post Type} index.
+ * Add custom post status to All {Post Type} index.
  *
  * @link  http://jamescollings.co.uk/blog/wordpress-create-custom-post-status/
  */
@@ -111,9 +111,9 @@ function morgue_post_status_display( $states ) {
 add_filter( 'display_post_states', 'morgue_post_status_display' );
 
 /**
- * Closes comments and pings when content gets Morgue status.
+ * Close comments and pings when content gets Morgue status.
  *
- * @link https://wordpress.org/plugins/archived-post-status/
+ * @link https://wordpress.org/plugins/archived-post-status/developers/
  * @action save_post
  *
  * @param int     $post_id
