@@ -110,3 +110,35 @@ function morgue_post_status_display( $states ) {
 }
 add_filter( 'display_post_states', 'morgue_post_status_display' );
 
+/**
+ * Closes comments and pings when content gets Morgue status.
+ *
+ * @link https://wordpress.org/plugins/archived-post-status/
+ * @action save_post
+ *
+ * @param int     $post_id
+ * @param WP_Post $post
+ * @param bool    $update
+ */
+function morgue_save_post( $post_id, $post, $update ) {
+     if ( wp_is_post_revision( $post ) ) {
+          return;
+     }
+
+     if ( 'morgue' === $post->post_status ) {
+          // Unhook to prevent infinite loop
+          remove_action( 'save_post', __FUNCTION__ );
+
+          $args = array(
+               'ID'             => $post->ID,
+               'comment_status' => 'closed',
+               'ping_status'    => 'closed',
+          );
+
+          wp_update_post( $args );
+
+          // Add hook back again
+          add_action( 'save_post', __FUNCTION__, 10, 3 );
+     }
+}
+add_action( 'save_post', 'morgue_save_post', 10, 3 );
