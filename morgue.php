@@ -1,22 +1,44 @@
 <?php
 
 /*
- * Plugin Name: Morgue
- * Plugin URI: http://transom.org/
- * Description: Adds new custom post status ('morgue') to save old posts, but keep them from public view.
- * Author:  Barrett Golding
- * Version: 0.1
- * Author URI: http://transom.org/
- * License: GPL2+
- * Text Domain: morgue
- * Prefix: morgue_
- */
+Plugin Name:        Morgue
+Plugin URI:         http://hearingvoices.com/tools/morgue
+Description:        For archiving posts away from public view. Adds new custom post status ('morgue') to save old posts, but prevent them from being publicly accessible.
+Author:             Barrett Golding
+Version:            0.1
+Author URI:         http://hearingvoices.com/
+License:            GPL-2.0+
+License URI:        http://www.gnu.org/licenses/gpl-2.0.txt
+Text Domain:        morgue
+Domain Path:        /languages
+Plugin Prefix:      morgue
 
-/*******************************
- =STATUS
-********************************/
-/* Add custom post status ('morgue': keep post from public view). */
-// http://jamescollings.co.uk/blog/wordpress-create-custom-post-status/
+Morgue is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+any later version.
+
+Morgue is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Morgue. If not, see:
+http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+*/
+
+/* ------------------------------------------------------------------------ *
+ * Custom Post Status: 'morgue'.
+ * ------------------------------------------------------------------------ */
+
+/**
+ * Registers new custom post status ('morgue').
+ *
+ * Settings save post but prevent it from public access.
+ *
+ * @link  https://developer.wordpress.org/reference/functions/register_post_status/
+ */
 function morgue_post_status(){
      register_post_status( 'morgue', array(
           'label'                     => _x( 'Morgue', 'morgue' ),
@@ -29,7 +51,11 @@ function morgue_post_status(){
 }
 add_action( 'init', 'morgue_post_status' );
 
-/* Adding custom post status to Publish box: Status dropdown */
+/**
+ * Adds custom post status to edit=post Publish box in the Status dropdown.
+ *
+ * @link  http://jamescollings.co.uk/blog/wordpress-create-custom-post-status/
+ */
 function morgue_post_status_list() {
      global $post;
      $complete = '';
@@ -51,7 +77,11 @@ function morgue_post_status_list() {
 }
 add_action( 'admin_footer-post.php', 'morgue_post_status_list' );
 
-/* Adding custom post status to Bulk and Quick Edit boxes: Status dropdown */
+/**
+ * Adds custom post status to Bulk and Quick Edit boxes in the Status dropdown.
+ *
+ * @link  https://rudrastyh.com/wordpress/custom-post-status-quick-edit.html
+ */
 function morgue_post_status_bulk() {
           echo '
           <script>
@@ -63,7 +93,11 @@ function morgue_post_status_bulk() {
 }
 add_action( 'admin_footer-edit.php', 'morgue_post_status_bulk' );
 
-/* Add custom post status to All {Post Type} index */
+/**
+ * Adds custom post status to All {Post Type} index.
+ *
+ * @link  http://jamescollings.co.uk/blog/wordpress-create-custom-post-status/
+ */
 function morgue_post_status_display( $states ) {
      global $post;
      $arg = get_query_var( 'post_status' );
@@ -75,3 +109,4 @@ function morgue_post_status_display( $states ) {
     return $states;
 }
 add_filter( 'display_post_states', 'morgue_post_status_display' );
+
