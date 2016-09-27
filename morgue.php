@@ -41,8 +41,7 @@ http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 function morgue_post_status(){
      register_post_status( 'morgue', array(
-          'label'                     => _x( 'Morgue', 'morgue' ),
-          // 'public'                    => false,
+          'label'                     => _x( 'Morgue', 'post', 'morgue' ),
           'private'                   => true,
           'exclude_from_search'       => true,
           'show_in_admin_all_list'    => true,
